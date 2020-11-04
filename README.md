@@ -91,8 +91,31 @@
 
     end the process and re-run the command. Make sure the Available Accounts and Private Keys are identical every time you run the command.
 
-1. Now that we have our blockchain running locally, we are ready to install Metamask to connect our accounts to our frontend application. 
+1. Now that we have our blockchain running locally, we can compile and deploy our drizzle contracts to our local blockchain. Keep your blockchain running and open a new terminal. Navigate back to our `truffle-example` directory and let's compile our contracts.
 
-## Install Metamask browser extension
+    `cd truffle-example`
+    `truffle compile`
+
+1. Run your migrations, specifying network: develop
+
+    `truffle migrate --network develop`
+
+    This will deploy our contracts to our blockchain. Make sure you give it the `--network develop` so it will deploy to the blockchain running on port 8545. By default it will try to deploy to port 7545 which doesn't currently have a blockchain running. 
+
+## Install Metamask browser extension and import your accounts
 
 see https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28
+
+1. Go to https://metamask.io and install the Metamask extension for your browser of choice.
+
+1. Once installed, click on the Metamask logo, agree to terms and conditions and create a new wallet. You will be given a 12-word mnemonic that you can use to access or recover your Metamask wallet from any computer. Make sure to store this 12-word mnemonic in a safe a secure way. Especially if you are going to use this wallet to transact on the Ethereum Mainnet.
+
+1. Click on the top dropdown to select your network and select Localhost 8545
+
+1. Click on the avatar in the top-right corner and select Import Account
+
+1. Paste one of the Private Keys that is displayed when you run `npm run ganache`. For simplicity, lets copy and paste the first Private Key and click Import.
+
+1. Metamask should now display your account with the corresponding public key (displayed under Available Accounts in the Ganache CLI) with an account balance of 100 ETH.
+
+1. If you want, you can import your other accounts, but really we will only need one account to get started.

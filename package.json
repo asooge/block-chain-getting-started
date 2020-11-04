@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ganache": "ganache-cli -d -m picture tray motion shuffle action fun puzzle velvet sample trip reject beef --db ./ganache_db -i 1"
+    "ganache": "ganache-cli -d -m picture tray motion shuffle action fun puzzle velvet sample trip reject beef --db ./ganache_db -i 1 -b 4"
   },
   "repository": {
     "type": "git",
