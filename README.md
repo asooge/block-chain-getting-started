@@ -40,7 +40,7 @@
 
     `npm start`
 
-    you should see a loading... message because there is no blockchain to connect to. Let's get one running locally on our computer using [ganache-cli](https://www.npmjs.com/package/ganache-cli)
+    If successful, you should see a failed to compile message because there is `./contracts/ComplexStorage.json` file. To resolve this, we will need to compile and deploy our contracts to a local blockchain using [ganache-cli](https://www.npmjs.com/package/ganache-cli)
 
 ## Use ganache-cli to run a local blockchain
 
@@ -49,7 +49,7 @@
     `npm install -g ganache-cli`
 
 
-1. Run ganache-cli to get a local ethereum blockchain running on your computer. 
+1. Run ganache-cli to get a local ethereum blockchain running on your computer.
 
     `ganache-cli`
 
@@ -81,41 +81,64 @@
     },
     ```
 
-1. Now every time we run this command our blockchain will remember all our past changes, users and save the history to our 'database' directory. cd to our drizzle-example and run our new command:
-
-    `cd truffle-example`
+1. Now every time we run this command our blockchain will remember all our past changes, users and save the history to our 'database' directory. Lets go back to our terminal that is running ganache-cli, end the process, and run our new command:
 
     `npm run ganache`
 
-    notice that a directory is created in our root directory called `ganache_db` as we described in our command. This is where blockchain history will be stored. We can add this file to our .gitignore to prevent from commiting this directory.
+    notice that a directory is created in our root directory called `ganache_db` as we described in our command. This is where blockchain history will be stored. We can add this directory to our .gitignore to prevent from commiting this directory.
 
     end the process and re-run the command. Make sure the Available Accounts and Private Keys are identical every time you run the command.
 
 1. Now that we have our blockchain running locally, we can compile and deploy our drizzle contracts to our local blockchain. Keep your blockchain running and open a new terminal. Navigate back to our `truffle-example` directory and let's compile our contracts.
 
     `cd truffle-example`
+
     `truffle compile`
 
 1. Run your migrations, specifying network: develop
 
     `truffle migrate --network develop`
 
-    This will deploy our contracts to our blockchain. Make sure you give it the `--network develop` so it will deploy to the blockchain running on port 8545. By default it will try to deploy to port 7545 which doesn't currently have a blockchain running. 
+    This will deploy our contracts to our blockchain. Make sure you give it the `--network develop` so it will deploy to the blockchain running on port 8545. By default it will try to deploy to port 7545 which doesn't currently have a blockchain running.
 
 ## Install Metamask browser extension and import your accounts
 
-see https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28
+1. Go to https://metamask.io and install the Metamask extension for your browser of choice (Chrome or Firefox).
 
-1. Go to https://metamask.io and install the Metamask extension for your browser of choice.
+1. Once installed, a new tab should open with the Metamask logo. Click on "Get Started" and "Create a Wallet" and agree to terms and conditions. Create a password and click "Create". You will be given a 12-word mnemonic that you can use to access or recover your Metamask wallet from any computer. Make sure to store this 12-word mnemonic in a safe a secure way. Especially if you are going to use this wallet to transact on the Ethereum Mainnet.
 
-1. Once installed, click on the Metamask logo, agree to terms and conditions and create a new wallet. You will be given a 12-word mnemonic that you can use to access or recover your Metamask wallet from any computer. Make sure to store this 12-word mnemonic in a safe a secure way. Especially if you are going to use this wallet to transact on the Ethereum Mainnet.
+1. Click on "Next" and it will ask you to confirm your 12-word mnemonic. If successful, it will say "Congratulations". Click on "All Done"
 
-1. Click on the top dropdown to select your network and select Localhost 8545
+1. Click on the top dropdown where it says "Ethereum Mainnet" to select your network and select Localhost 8545
 
 1. Click on the avatar in the top-right corner and select Import Account
 
 1. Paste one of the Private Keys that is displayed when you run `npm run ganache`. For simplicity, lets copy and paste the first Private Key and click Import.
 
-1. Metamask should now display your account with the corresponding public key (displayed under Available Accounts in the Ganache CLI) with an account balance of 100 ETH.
+1. Metamask should now display your account with the corresponding public key (displayed under Available Accounts in the Ganache CLI) with an account balance close to 100 ETH (minus the amount spent to deploy your contracts).
 
 1. If you want, you can import your other accounts, but really we will only need one account to get started.
+
+## Starting our Drizzle App
+
+1. Now that we have our Metamask and our contracts deployed to our local blockchain, lets go back to our frontend app, end the process (if still running) and restart:
+
+  `npm start`
+
+1. We should now see our drizzle application that we can interact with our blockchain. Let's test the first contract, "Simple Storage" to make sure we can update, read, and persist data to our blockchain. Set the value to any number and submit. You should see the value update soon after.
+
+1. Now shut down the ganache-cli and restart. Let's make sure the data is persisting. Your application should load with the previous value that you set. Congratulations, you now have a local blockchain that you can persist data to.
+
+1. Experiment with the other contracts and inspect the code for the contracts, and the drizzle app. The great thing about drizzle is that it takes care of the connection with the blockchain and will listen for changes to the blockchain. That way any time there's a change to one of your contracts, the blockchain will emit an event that drizzle will receive and immediately update your app's state.
+
+## Next steps
+
+1. Now that we are setup with our local environment, we can update our smart contracts using the Solidity programming language or write new contracts, then compile and deploy to our network. If we want to start a new project, we can use the same command for ganache, just specify a different networkId and it will create a new network, but you will still be able to use the same accounts that we linked to our Metamask.
+
+1. A good place to start is the Solidity documentation: https://solidity.readthedocs.io/en/v0.7.4/
+
+1. Practice creating smart contracts with Ethereum Remix: https://remix.ethereum.org/
+
+1. If you prefer a more tutorial-based approach, try Crypto Zombies: https://cryptozombies.io/
+
+1. Good luck and have fun!
